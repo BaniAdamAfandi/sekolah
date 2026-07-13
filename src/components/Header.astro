@@ -25,9 +25,13 @@ const isActive = (href: string) =>
   <nav class="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-3 shrink-0">
-      <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-800 text-white font-heading text-lg font-bold shadow-sm">
-        T3
-      </span>
+      {site.logo ? (
+        <img src={site.logo} alt={`Logo ${site.schoolName}`} class="h-10 w-10 rounded-xl object-contain" />
+      ) : (
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-800 text-white font-heading text-lg font-bold shadow-sm">
+          T3
+        </span>
+      )}
       <span class="flex flex-col leading-none">
         <span class="font-heading text-base font-bold text-primary-800">{site.schoolName}</span>
         <span class="text-[11px] text-slate-500">Kota Batu, Jawa Timur</span>

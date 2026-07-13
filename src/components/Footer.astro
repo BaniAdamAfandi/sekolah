@@ -18,7 +18,11 @@ const quickLinks = [
     <!-- Identitas -->
     <div class="lg:col-span-2">
       <div class="flex items-center gap-3">
-        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-500 text-white font-heading text-lg font-bold">T3</span>
+        {site.logo ? (
+          <img src={site.logo} alt={`Logo ${site.schoolName}`} class="h-11 w-11 rounded-xl bg-white object-contain p-1" />
+        ) : (
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-500 text-white font-heading text-lg font-bold">T3</span>
+        )}
         <span class="font-heading text-lg font-bold text-white">{site.schoolName}</span>
       </div>
       <p class="mt-4 max-w-md text-sm leading-relaxed text-slate-300">

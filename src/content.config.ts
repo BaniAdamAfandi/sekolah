@@ -67,6 +67,7 @@ const pengaturan = defineCollection({
     id: z.string(),
     schoolName: z.string(),
     tagline: z.string(),
+    logo: z.string().optional(),
     npsn: z.string().optional(),
     accreditation: z.string().optional(),
     address: z.string(),

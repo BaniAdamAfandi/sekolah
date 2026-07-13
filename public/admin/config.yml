@@ -117,6 +117,7 @@ collections:
         fields:
           - { name: "id", label: "ID", widget: "hidden", default: "site" }
           - { name: "schoolName", label: "Nama Sekolah", widget: "string" }
+          - { name: "logo", label: "Logo Sekolah", widget: "image", required: false, hint: "Sebaiknya format PNG transparan, rasio persegi (mis. 512x512)." }
           - { name: "tagline", label: "Tagline", widget: "string" }
           - { name: "npsn", label: "NPSN", widget: "string", required: false }
           - { name: "accreditation", label: "Akreditasi", widget: "string", required: false }
