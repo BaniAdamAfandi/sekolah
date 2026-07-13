@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Figure from '../components/Figure.astro';
+import BeritaCard from '../components/BeritaCard.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { formatDate, dateParts } from '../lib/format';
+
+const site = (await getEntry('pengaturan', 'site'))!.data;
+const profil = (await getEntry('profil', 'profil'))!.data;
+
+const berita = (await getCollection('berita', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const now = new Date();
+const agenda = (await getCollection('agenda'))
+  .filter((a) => a.data.eventDate.getTime() >= now.setHours(0, 0, 0, 0))
+  .sort((a, b) => a.data.eventDate.getTime() - b.data.eventDate.getTime())
+  .slice(0, 3);
+
+const stats = [
+  { label: 'Peserta Didik', value: site.studentCount ?? '—', icon: 'students' },
+  { label: 'Guru & Tendik', value: site.teacherCount ?? '—', icon: 'teacher' },
+  { label: 'Akreditasi', value: site.accreditation ?? '—', icon: 'award' },
+];
+---
+
+<BaseLayout>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-canvas">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute -top-24 right-0 h-96 w-96 rounded-full bg-secondary-200/40 blur-3xl"></div>
+      <div class="absolute top-40 -left-20 h-80 w-80 rounded-full bg-primary-200/50 blur-3xl"></div>
+    </div>
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20 lg:px-8">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-sm font-semibold text-primary-800 ring-1 ring-primary-100">
+          <span class="h-2 w-2 rounded-full bg-secondary-500"></span>
+          Selamat Datang di {site.schoolName}
+        </span>
+        <h1 class="mt-5 font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl lg:text-[3.25rem]">
+          {site.heroHeadline}
+        </h1>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
+          {site.heroSubheadline}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/ppdb" class="rounded-full bg-primary-800 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-primary-800/20 transition-transform hover:-translate-y-0.5 hover:bg-primary-900">
+            Info PPDB
+          </a>
+          <a href="/profil" class="rounded-full bg-secondary-500 px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-secondary-500/20 transition-transform hover:-translate-y-0.5 hover:bg-secondary-600">
+            Profil Sekolah
+          </a>
+        </div>
+      </div>
+
+      <!-- Foto hero dengan organic shape -->
+      <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+        <div class="blob-mask overflow-hidden shadow-2xl shadow-primary-900/20 ring-8 ring-white">
+          <Figure src={site.heroImage} alt="Kegiatan siswa SDN Tulungrejo 03" ratio="aspect-square" rounded="rounded-none" loading="eager" />
+        </div>
+        <div class="absolute -bottom-4 -left-2 hidden rounded-2xl bg-white px-5 py-4 shadow-xl ring-1 ring-slate-100 sm:block">
+          <p class="font-heading text-2xl font-bold text-primary-800">{site.studentCount}</p>
+          <p class="text-xs text-slate-500">Siswa Aktif</p>
+        </div>
+        <div class="absolute -right-2 top-6 hidden rounded-2xl bg-secondary-500 px-5 py-4 text-center text-white shadow-xl sm:block">
+          <p class="font-heading text-3xl font-bold leading-none">{site.accreditation}</p>
+          <p class="mt-1 text-xs text-secondary-50">Akreditasi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== QUICK INFO BENTO ===================== -->
+  <section class="mx-auto -mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-4 sm:grid-cols-3">
+      {
+        stats.map((s) => (
+          <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200/70">
+            <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary-50 text-primary-800">
+              {s.icon === 'students' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.479m.94-3.198a5.97 5.97 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+              )}
+              {s.icon === 'teacher' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+              )}
+              {s.icon === 'award' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"/></svg>
+              )}
+            </span>
+            <div>
+              <p class="font-heading text-3xl font-bold text-ink">{s.value}</p>
+              <p class="text-sm text-slate-500">{s.label}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ===================== SAMBUTAN SINGKAT ===================== -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-10 rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70 lg:grid-cols-3 lg:p-12">
+      <div class="lg:col-span-1">
+        <div class="mx-auto max-w-[220px] overflow-hidden rounded-3xl ring-4 ring-primary-50">
+          <Figure src={profil.principalPhoto} alt={profil.principalName} ratio="aspect-[3/4]" rounded="rounded-none" />
+        </div>
+        <p class="mt-4 text-center font-heading text-lg font-bold text-ink">{profil.principalName}</p>
+        <p class="text-center text-sm text-slate-500">Kepala Sekolah</p>
+      </div>
+      <div class="lg:col-span-2">
+        <span class="text-sm font-semibold uppercase tracking-wider text-secondary-600">Sambutan</span>
+        <h2 class="mt-2 font-heading text-2xl font-bold text-ink sm:text-3xl">Sambutan Kepala Sekolah</h2>
+        <p class="mt-4 leading-relaxed text-slate-600 line-clamp-6">{profil.principalGreeting}</p>
+        <a href="/profil" class="mt-5 inline-flex items-center gap-1.5 font-semibold text-primary-700 hover:text-primary-900">
+          Selengkapnya tentang profil sekolah
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BERITA TERBARU ===================== -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between gap-4">
+      <div>
+        <span class="text-sm font-semibold uppercase tracking-wider text-secondary-600">Kabar Sekolah</span>
+        <h2 class="mt-1 font-heading text-2xl font-bold text-ink sm:text-3xl">Berita Terbaru</h2>
+      </div>
+      <a href="/berita" class="hidden shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-primary-700 ring-1 ring-primary-200 transition-colors hover:bg-primary-50 sm:inline-block">
+        Semua Berita
+      </a>
+    </div>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {berita.map((b) => <BeritaCard id={b.id} {...b.data} />)}
+    </div>
+    <div class="mt-8 text-center sm:hidden">
+      <a href="/berita" class="inline-block rounded-full px-5 py-2.5 text-sm font-semibold text-primary-700 ring-1 ring-primary-200">Semua Berita</a>
+    </div>
+  </section>
+
+  <!-- ===================== AGENDA ===================== -->
+  {agenda.length > 0 && (
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-primary-800 p-8 text-white sm:p-12">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <span class="text-sm font-semibold uppercase tracking-wider text-secondary-300">Jadwal</span>
+            <h2 class="mt-1 font-heading text-2xl font-bold sm:text-3xl">Agenda Mendatang</h2>
+          </div>
+          <a href="/agenda" class="hidden shrink-0 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20 sm:inline-block">
+            Semua Agenda
+          </a>
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-3">
+          {
+            agenda.map((a) => {
+              const d = dateParts(a.data.eventDate);
+              return (
+                <div class="flex gap-4 rounded-2xl bg-white/10 p-5 ring-1 ring-white/10">
+                  <div class="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-secondary-500 text-white">
+                    <span class="font-heading text-2xl font-bold leading-none">{d.day}</span>
+                    <span class="text-xs uppercase">{d.month}</span>
+                  </div>
+                  <div>
+                    <h3 class="font-heading font-bold leading-snug">{a.data.title}</h3>
+                    {a.data.location && <p class="mt-1 text-sm text-primary-100">📍 {a.data.location}</p>}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===================== CTA PPDB ===================== -->
+  <section class="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-secondary-500 to-secondary-600 p-8 text-center text-white sm:p-14">
+      <h2 class="font-heading text-2xl font-bold sm:text-3xl">Ingin Bergabung Bersama Kami?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-secondary-50">
+        Penerimaan Peserta Didik Baru kini dibuka. Dapatkan informasi lengkap mengenai syarat dan alur pendaftaran.
+      </p>
+      <a href="/ppdb" class="mt-6 inline-block rounded-full bg-white px-8 py-3.5 text-base font-semibold text-secondary-600 shadow-lg transition-transform hover:-translate-y-0.5">
+        Lihat Informasi PPDB
+      </a>
+    </div>
+  </section>
+</BaseLayout>

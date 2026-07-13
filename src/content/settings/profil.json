@@ -1,0 +1,15 @@
+{
+  "id": "profil",
+  "principalName": "Kepala Sekolah",
+  "principalPhoto": "/uploads/kepala-sekolah.jpg",
+  "principalGreeting": "Assalamu'alaikum warahmatullahi wabarakatuh. Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa. Selamat datang di website resmi SDN Tulungrejo 03. Website ini kami hadirkan sebagai media informasi dan komunikasi antara sekolah dengan wali murid serta masyarakat. Semoga kehadiran website ini membawa manfaat dan mempererat sinergi dalam mendidik putra-putri kita menjadi generasi yang cerdas dan berkarakter.",
+  "vision": "Terwujudnya peserta didik yang beriman, bertakwa, cerdas, terampil, berkarakter, dan berbudaya lingkungan.",
+  "missions": [
+    { "point": "Menanamkan nilai keimanan dan ketakwaan melalui pembiasaan kegiatan keagamaan." },
+    { "point": "Melaksanakan pembelajaran aktif, kreatif, efektif, dan menyenangkan (PAKEM)." },
+    { "point": "Mengembangkan potensi peserta didik di bidang akademik dan non-akademik." },
+    { "point": "Menumbuhkan karakter disiplin, jujur, dan bertanggung jawab." },
+    { "point": "Menciptakan lingkungan sekolah yang bersih, sehat, dan ramah anak." }
+  ],
+  "history": "SDN Tulungrejo 03 merupakan sekolah dasar negeri yang telah lama berkiprah dalam dunia pendidikan di wilayah Tulungrejo. Sejak berdiri, sekolah ini terus berkomitmen memberikan layanan pendidikan berkualitas bagi masyarakat sekitar, dengan didukung tenaga pendidik yang berdedikasi dan fasilitas yang terus dikembangkan."
+}

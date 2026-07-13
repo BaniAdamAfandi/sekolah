@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Figure from '../components/Figure.astro';
+import { getCollection } from 'astro:content';
+
+const guru = (await getCollection('guru')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Guru & Tenaga Kependidikan" description="Daftar guru dan tenaga kependidikan sekolah.">
+  <PageHeader eyebrow="Sumber Daya Manusia" title="Guru & Tenaga Kependidikan" subtitle="Tim pendidik yang berdedikasi membimbing putra-putri Anda." />
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    {guru.length === 0 ? (
+      <p class="rounded-2xl bg-white p-10 text-center text-slate-500 ring-1 ring-slate-200">Data guru belum tersedia.</p>
+    ) : (
+      <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+        {guru.map((g) => (
+          <div class="card-lift overflow-hidden rounded-2xl bg-white text-center shadow-sm ring-1 ring-slate-200/70">
+            <Figure src={g.data.photo} alt={g.data.name} ratio="aspect-[3/4]" rounded="rounded-none" />
+            <div class="p-4">
+              <h3 class="font-heading text-base font-bold leading-snug text-ink">{g.data.name}</h3>
+              <p class="mt-1 text-sm font-medium text-primary-700">{g.data.role}</p>
+              {g.data.nip && g.data.nip !== '-' && (
+                <p class="mt-1 text-xs text-slate-400">NIP. {g.data.nip}</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

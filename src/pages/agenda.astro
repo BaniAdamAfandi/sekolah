@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { formatDateFull, dateParts } from '../lib/format';
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const all = (await getCollection('agenda')).sort(
+  (a, b) => a.data.eventDate.getTime() - b.data.eventDate.getTime()
+);
+const upcoming = all.filter((a) => a.data.eventDate.getTime() >= today.getTime());
+const past = all
+  .filter((a) => a.data.eventDate.getTime() < today.getTime())
+  .sort((a, b) => b.data.eventDate.getTime() - a.data.eventDate.getTime());
+---
+
+<BaseLayout title="Agenda" description="Kalender kegiatan dan agenda penting sekolah.">
+  <PageHeader eyebrow="Kalender Akademik" title="Agenda Sekolah" subtitle="Jadwal kegiatan dan event penting yang akan datang." />
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-xl font-bold text-ink">Agenda Mendatang</h2>
+    {upcoming.length === 0 ? (
+      <p class="mt-4 rounded-2xl bg-white p-8 text-center text-slate-500 ring-1 ring-slate-200">Belum ada agenda mendatang.</p>
+    ) : (
+      <div class="mt-6 space-y-4">
+        {upcoming.map((a) => {
+          const d = dateParts(a.data.eventDate);
+          return (
+            <div class="card-lift flex gap-5 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/70">
+              <div class="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-primary-800 text-white">
+                <span class="font-heading text-3xl font-bold leading-none">{d.day}</span>
+                <span class="text-xs uppercase tracking-wide">{d.month} {d.year}</span>
+              </div>
+              <div class="min-w-0">
+                <h3 class="font-heading text-lg font-bold text-ink">{a.data.title}</h3>
+                <p class="mt-1 text-sm text-slate-500">{formatDateFull(a.data.eventDate)}</p>
+                {a.data.location && <p class="mt-1 flex items-center gap-1.5 text-sm text-slate-600"><span class="text-secondary-500">📍</span>{a.data.location}</p>}
+                {a.data.description && <p class="mt-2 text-sm leading-relaxed text-slate-600">{a.data.description}</p>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    )}
+
+    {past.length > 0 && (
+      <div class="mt-14">
+        <h2 class="font-heading text-xl font-bold text-ink">Agenda Terlewat</h2>
+        <div class="mt-6 space-y-3">
+          {past.map((a) => {
+            const d = dateParts(a.data.eventDate);
+            return (
+              <div class="flex items-center gap-4 rounded-2xl bg-white/60 p-4 opacity-70 ring-1 ring-slate-200/70">
+                <div class="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-slate-200 text-slate-600">
+                  <span class="font-heading text-lg font-bold leading-none">{d.day}</span>
+                  <span class="text-[10px] uppercase">{d.month}</span>
+                </div>
+                <div>
+                  <h3 class="font-heading font-bold text-slate-700">{a.data.title}</h3>
+                  <p class="text-sm text-slate-400">{formatDateFull(a.data.eventDate)}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    )}
+  </section>
+</BaseLayout>

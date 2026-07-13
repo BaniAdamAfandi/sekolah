@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getEntry } from 'astro:content';
+
+const site = (await getEntry('pengaturan', 'site'))!.data;
+const ppdb = (await getEntry('ppdb', 'ppdb'))!.data;
+const waLink = site.whatsapp ? `https://wa.me/${site.whatsapp}?text=Halo,%20saya%20ingin%20bertanya%20tentang%20PPDB` : null;
+---
+
+<BaseLayout title="PPDB" description={`Informasi Penerimaan Peserta Didik Baru ${site.schoolName}.`}>
+  <PageHeader
+    eyebrow="Penerimaan Peserta Didik Baru"
+    title={`PPDB ${ppdb.year ?? ''}`}
+    subtitle={ppdb.isOpen ? 'Pendaftaran sedang DIBUKA. Simak informasi lengkap di bawah ini.' : 'Informasi Penerimaan Peserta Didik Baru.'}
+  />
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class:list={[
+      'mb-8 flex items-center gap-3 rounded-2xl p-5 ring-1',
+      ppdb.isOpen ? 'bg-green-50 text-green-800 ring-green-200' : 'bg-slate-50 text-slate-600 ring-slate-200',
+    ]}>
+      <span class:list={['flex h-3 w-3 rounded-full', ppdb.isOpen ? 'animate-pulse bg-green-500' : 'bg-slate-400']}></span>
+      <p class="font-semibold">{ppdb.isOpen ? `Pendaftaran DIBUKA — Tahun Pelajaran ${ppdb.year}` : 'Pendaftaran saat ini ditutup'}</p>
+    </div>
+
+    {ppdb.intro && <p class="leading-relaxed text-slate-600">{ppdb.intro}</p>}
+
+    <!-- Persyaratan -->
+    {ppdb.requirements.length > 0 && (
+      <div class="mt-10">
+        <h2 class="flex items-center gap-2 font-heading text-2xl font-bold text-ink">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-50 text-primary-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg>
+          </span>
+          Persyaratan Pendaftaran
+        </h2>
+        <ul class="mt-5 space-y-3">
+          {ppdb.requirements.map((r) => (
+            <li class="flex gap-3 rounded-2xl bg-white p-4 ring-1 ring-slate-200/70">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 text-secondary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span class="text-slate-700">{r.point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Alur -->
+    {ppdb.steps.length > 0 && (
+      <div class="mt-12">
+        <h2 class="flex items-center gap-2 font-heading text-2xl font-bold text-ink">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary-100 text-secondary-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+          </span>
+          Alur Pendaftaran
+        </h2>
+        <ol class="mt-6 space-y-4">
+          {ppdb.steps.map((s, i) => (
+            <li class="flex gap-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-800 font-heading font-bold text-white">{i + 1}</span>
+              <span class="pt-1.5 text-slate-700">{s.step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+
+    <!-- CTA -->
+    <div class="mt-12 rounded-3xl bg-primary-800 p-8 text-center text-white sm:p-10">
+      <h2 class="font-heading text-xl font-bold sm:text-2xl">Ada Pertanyaan Seputar PPDB?</h2>
+      <p class="mx-auto mt-2 max-w-lg text-primary-100">Hubungi panitia PPDB untuk informasi lebih lanjut atau kunjungi langsung sekolah kami.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        {ppdb.externalLink && (
+          <a href={ppdb.externalLink} class="rounded-full bg-secondary-500 px-7 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-secondary-600">Daftar Online</a>
+        )}
+        {waLink && (
+          <a href={waLink} class="rounded-full bg-white px-7 py-3 font-semibold text-primary-800 transition-transform hover:-translate-y-0.5">Hubungi via WhatsApp</a>
+        )}
+        <a href="/kontak" class="rounded-full bg-white/10 px-7 py-3 font-semibold text-white ring-1 ring-white/20 transition-colors hover:bg-white/20">Kontak Sekolah</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

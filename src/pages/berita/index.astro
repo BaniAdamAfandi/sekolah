@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import BeritaCard from '../../components/BeritaCard.astro';
+import { getCollection } from 'astro:content';
+
+const berita = (await getCollection('berita', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+const categories = [...new Set(berita.map((b) => b.data.category))];
+---
+
+<BaseLayout title="Berita" description="Berita, kegiatan, dan pengumuman terbaru dari sekolah.">
+  <PageHeader eyebrow="Kabar Sekolah" title="Berita & Kegiatan" subtitle="Ikuti perkembangan, kegiatan, dan pengumuman terbaru sekolah." />
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    {categories.length > 1 && (
+      <div class="mb-8 flex flex-wrap gap-2" id="filter-bar">
+        <button data-cat="all" class="cat-btn rounded-full bg-primary-800 px-4 py-2 text-sm font-semibold text-white">Semua</button>
+        {categories.map((c) => (
+          <button data-cat={c} class="cat-btn rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-600 ring-1 ring-slate-200 transition-colors hover:bg-slate-50">{c}</button>
+        ))}
+      </div>
+    )}
+
+    {berita.length === 0 ? (
+      <p class="rounded-2xl bg-white p-10 text-center text-slate-500 ring-1 ring-slate-200">Belum ada berita yang dipublikasikan.</p>
+    ) : (
+      <div id="berita-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {berita.map((b) => (
+          <div class="berita-item" data-cat={b.data.category}>
+            <BeritaCard id={b.id} {...b.data} />
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.cat-btn');
+    const items = document.querySelectorAll<HTMLElement>('.berita-item');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        buttons.forEach((b) => {
+          b.classList.remove('bg-primary-800', 'text-white');
+          b.classList.add('bg-white', 'text-slate-600', 'ring-1', 'ring-slate-200');
+        });
+        btn.classList.add('bg-primary-800', 'text-white');
+        btn.classList.remove('bg-white', 'text-slate-600', 'ring-1', 'ring-slate-200');
+        items.forEach((item) => {
+          item.style.display = cat === 'all' || item.dataset.cat === cat ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</BaseLayout>

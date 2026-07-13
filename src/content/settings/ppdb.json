@@ -1,0 +1,21 @@
+{
+  "id": "ppdb",
+  "isOpen": true,
+  "year": "2026/2027",
+  "intro": "Penerimaan Peserta Didik Baru (PPDB) SDN Tulungrejo 03 Tahun Pelajaran 2026/2027 telah dibuka. Silakan simak persyaratan dan alur pendaftaran berikut. Untuk informasi lebih lanjut, hubungi panitia PPDB melalui kontak yang tersedia.",
+  "requirements": [
+    { "point": "Berusia minimal 6 tahun pada 1 Juli tahun berjalan (fotokopi Akta Kelahiran)." },
+    { "point": "Fotokopi Kartu Keluarga (KK)." },
+    { "point": "Fotokopi KTP orang tua/wali." },
+    { "point": "Pas foto berwarna ukuran 3x4 sebanyak 2 lembar." },
+    { "point": "Mengisi formulir pendaftaran yang disediakan sekolah." }
+  ],
+  "steps": [
+    { "step": "Mengambil dan mengisi formulir pendaftaran di sekolah atau secara online." },
+    { "step": "Menyerahkan berkas persyaratan kepada panitia PPDB." },
+    { "step": "Verifikasi berkas oleh panitia." },
+    { "step": "Pengumuman hasil seleksi/penerimaan." },
+    { "step": "Daftar ulang bagi peserta didik yang diterima." }
+  ],
+  "externalLink": ""
+}

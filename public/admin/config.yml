@@ -1,0 +1,173 @@
+# ====================================================================
+# Konfigurasi Decap CMS — SDN Tulungrejo 03
+# --------------------------------------------------------------------
+# Backend: GitHub + OAuth serverless function di Vercel (100% gratis).
+# Ganti `repo` dan `base_url` sesuai akun & domain Anda.
+# ====================================================================
+backend:
+  name: github
+  repo: BaniAdamAfandi/sekolah        # ← ganti bila fork/rename
+  branch: claude/sdn-tulungrejo-school-site-ed2jbg
+  # base_url = domain tempat serverless OAuth berjalan (situs Vercel Anda)
+  base_url: https://sdn-tulungrejo-03.vercel.app
+  auth_endpoint: /api/auth
+
+# Simpan perubahan sebagai draft dulu (editorial workflow) — opsional.
+publish_mode: editorial_workflow
+
+# Lokasi upload media (foto berita, guru, galeri, dll.)
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Bahasa antarmuka
+locale: "id"
+
+# Pesan commit yang rapi di GitHub
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  # ---------------- BERITA ----------------
+  - name: "berita"
+    label: "Berita & Artikel"
+    label_singular: "Berita"
+    folder: "src/content/berita"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["publishDate", "title"]
+    preview_path: "berita/{{slug}}"
+    fields:
+      - { name: "title", label: "Judul", widget: "string" }
+      - { name: "publishDate", label: "Tanggal Terbit", widget: "datetime", date_format: "DD-MM-YYYY", time_format: false, format: "YYYY-MM-DD" }
+      - name: "category"
+        label: "Kategori"
+        widget: "select"
+        options: ["Pengumuman", "Kegiatan", "Prestasi", "Akademik", "Ekstrakurikuler", "Umum"]
+        default: "Umum"
+      - { name: "thumbnail", label: "Gambar Utama", widget: "image", required: false }
+      - { name: "excerpt", label: "Ringkasan Singkat", widget: "text", required: false }
+      - { name: "author", label: "Penulis", widget: "string", default: "Admin Sekolah" }
+      - { name: "draft", label: "Simpan sebagai Draf?", widget: "boolean", default: false }
+      - { name: "body", label: "Isi Berita", widget: "markdown" }
+
+  # ---------------- GURU ----------------
+  - name: "guru"
+    label: "Guru & Tenaga Kependidikan"
+    label_singular: "Guru"
+    folder: "src/content/guru"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "name"]
+    fields:
+      - { name: "name", label: "Nama Lengkap (dengan gelar)", widget: "string" }
+      - { name: "role", label: "Jabatan / Wali Kelas", widget: "string" }
+      - { name: "nip", label: "NIP", widget: "string", required: false, default: "-" }
+      - { name: "photo", label: "Foto", widget: "image", required: false }
+      - { name: "order", label: "Urutan Tampil", widget: "number", value_type: "int", default: 99 }
+      - { name: "body", label: "Catatan (opsional)", widget: "markdown", required: false }
+
+  # ---------------- AGENDA ----------------
+  - name: "agenda"
+    label: "Agenda / Event"
+    label_singular: "Agenda"
+    folder: "src/content/agenda"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["eventDate", "title"]
+    fields:
+      - { name: "title", label: "Judul Agenda", widget: "string" }
+      - { name: "eventDate", label: "Tanggal Kegiatan", widget: "datetime", date_format: "DD-MM-YYYY", time_format: false, format: "YYYY-MM-DD" }
+      - { name: "location", label: "Lokasi", widget: "string", required: false }
+      - { name: "description", label: "Deskripsi", widget: "text", required: false }
+      - { name: "body", label: "Detail (opsional)", widget: "markdown", required: false }
+
+  # ---------------- GALERI ----------------
+  - name: "galeri"
+    label: "Galeri Foto"
+    label_singular: "Album"
+    folder: "src/content/galeri"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Judul Album", widget: "string" }
+      - { name: "date", label: "Tanggal", widget: "datetime", date_format: "DD-MM-YYYY", time_format: false, format: "YYYY-MM-DD", required: false }
+      - name: "category"
+        label: "Kategori"
+        widget: "select"
+        options: ["Kegiatan", "Pembelajaran", "Fasilitas", "Prestasi", "Ekstrakurikuler"]
+        default: "Kegiatan"
+      - { name: "cover", label: "Foto Sampul", widget: "image", required: false }
+      - name: "images"
+        label: "Foto-foto"
+        widget: "list"
+        fields:
+          - { name: "image", label: "Foto", widget: "image" }
+          - { name: "caption", label: "Keterangan", widget: "string", required: false }
+      - { name: "body", label: "Deskripsi (opsional)", widget: "markdown", required: false }
+
+  # ---------------- PENGATURAN (file tunggal) ----------------
+  - name: "pengaturan"
+    label: "Pengaturan Situs"
+    files:
+      # ---- Info Umum & Hero ----
+      - name: "site"
+        label: "Informasi Sekolah & Beranda"
+        file: "src/content/settings/site.json"
+        fields:
+          - { name: "id", label: "ID", widget: "hidden", default: "site" }
+          - { name: "schoolName", label: "Nama Sekolah", widget: "string" }
+          - { name: "tagline", label: "Tagline", widget: "string" }
+          - { name: "npsn", label: "NPSN", widget: "string", required: false }
+          - { name: "accreditation", label: "Akreditasi", widget: "string", required: false }
+          - { name: "address", label: "Alamat", widget: "text" }
+          - { name: "email", label: "Email", widget: "string", required: false }
+          - { name: "phone", label: "Telepon", widget: "string", required: false }
+          - { name: "whatsapp", label: "WhatsApp (mis. 6281234567890)", widget: "string", required: false }
+          - { name: "mapsEmbed", label: "URL Embed Google Maps", widget: "string", required: false }
+          - { name: "facebook", label: "Link Facebook", widget: "string", required: false }
+          - { name: "instagram", label: "Link Instagram", widget: "string", required: false }
+          - { name: "youtube", label: "Link YouTube", widget: "string", required: false }
+          - { name: "studentCount", label: "Jumlah Siswa", widget: "string", required: false }
+          - { name: "teacherCount", label: "Jumlah Guru", widget: "string", required: false }
+          - { name: "heroImage", label: "Foto Hero (Beranda)", widget: "image", required: false }
+          - { name: "heroHeadline", label: "Judul Hero", widget: "string", required: false }
+          - { name: "heroSubheadline", label: "Subjudul Hero", widget: "text", required: false }
+
+      # ---- Profil ----
+      - name: "profil"
+        label: "Profil Sekolah"
+        file: "src/content/settings/profil.json"
+        fields:
+          - { name: "id", label: "ID", widget: "hidden", default: "profil" }
+          - { name: "principalName", label: "Nama Kepala Sekolah", widget: "string", required: false }
+          - { name: "principalPhoto", label: "Foto Kepala Sekolah", widget: "image", required: false }
+          - { name: "principalGreeting", label: "Sambutan Kepala Sekolah", widget: "text", required: false }
+          - { name: "vision", label: "Visi", widget: "text", required: false }
+          - name: "missions"
+            label: "Misi"
+            widget: "list"
+            fields:
+              - { name: "point", label: "Poin Misi", widget: "string" }
+          - { name: "history", label: "Sejarah Singkat", widget: "text", required: false }
+
+      # ---- PPDB ----
+      - name: "ppdb"
+        label: "PPDB"
+        file: "src/content/settings/ppdb.json"
+        fields:
+          - { name: "id", label: "ID", widget: "hidden", default: "ppdb" }
+          - { name: "isOpen", label: "Pendaftaran Dibuka?", widget: "boolean", default: false }
+          - { name: "year", label: "Tahun Pelajaran", widget: "string", required: false }
+          - { name: "intro", label: "Pengantar", widget: "text", required: false }
+          - name: "requirements"
+            label: "Persyaratan"
+            widget: "list"
+            fields:
+              - { name: "point", label: "Syarat", widget: "string" }
+          - name: "steps"
+            label: "Alur Pendaftaran"
+            widget: "list"
+            fields:
+              - { name: "step", label: "Langkah", widget: "string" }
+          - { name: "externalLink", label: "Link Pendaftaran Online (opsional)", widget: "string", required: false }

@@ -1,0 +1,20 @@
+{
+  "id": "site",
+  "schoolName": "SDN Tulungrejo 03",
+  "tagline": "Sekolah Dasar Negeri Tulungrejo 03",
+  "npsn": "-",
+  "accreditation": "B",
+  "address": "Desa Tulungrejo, Kecamatan Pare, Kabupaten Kediri, Jawa Timur",
+  "email": "sdntulungrejo03@gmail.com",
+  "phone": "",
+  "whatsapp": "6281234567890",
+  "mapsEmbed": "https://www.google.com/maps?q=Tulungrejo%20Pare%20Kediri&output=embed",
+  "facebook": "",
+  "instagram": "",
+  "youtube": "",
+  "studentCount": "180+",
+  "teacherCount": "12",
+  "heroImage": "/uploads/hero-siswa.jpg",
+  "heroHeadline": "Tumbuh Ceria, Belajar Berprestasi",
+  "heroSubheadline": "Selamat datang di SDN Tulungrejo 03. Kami membentuk generasi cerdas, berkarakter, dan berakhlak mulia dalam lingkungan belajar yang menyenangkan dan ramah anak."
+}
