@@ -1,9 +1,5 @@
 {
   "heroImage": "/uploads/screenshot-2026-07-13-153312.png",
-  "heroImages": [
-    { "image": "/uploads/screenshot-2026-07-13-153312.png" }
-  ],
-  "heroInterval": 5,
   "mapsEmbed": "https://maps.google.com/maps?q=-7.7679894,112.5313484&z=16&output=embed",
   "youtube": "test",
   "facebook": "test",
@@ -13,6 +9,14 @@
   "tagline": "Sekolah Dasar Negeri Tulungrejo 03 Baut Malang",
   "heroHeadline": "Tumbuh Ceria, Belajar Berprestasi",
   "whatsapp": "6281234567890",
+  "heroImages": [
+    {
+      "image": "/uploads/screenshot-2026-07-13-153312.png"
+    },
+    {
+      "image": "/uploads/hero-siswa.svg"
+    }
+  ],
   "instagram": "test",
   "studentCount": "180+",
   "address": "Sumber Brantas, Kec. Bumiaji, Kota Batu, Jawa Timur",
@@ -22,5 +26,6 @@
   "id": "site",
   "email": "sdntulungrejo03@gmail.com",
   "npsn": "-",
-  "schoolName": "SDN Tulungrejo 03 Batu Malang"
+  "schoolName": "SDN Tulungrejo 03 Batu Malang",
+  "heroInterval": 5
 }
