@@ -74,7 +74,7 @@ Ganti `https://sdn-tulungrejo-03.vercel.app` dengan domain Anda pada:
 - `public/admin/config.yml` → `base_url`
 - `astro.config.mjs` → variabel `SITE` (atau set env `SITE_URL` di Vercel)
 
-> Catatan: `config.yml` juga memakai `branch: claude/sdn-tulungrejo-school-site-ed2jbg`. Setelah di-merge ke `main`, ubah menjadi `branch: main`.
+> Catatan: `config.yml` memakai `branch: main` (branch default repo tempat konten disimpan & Vercel deploy).
 
 ### 6. Selesai — Kelola Konten
 Buka `https://<domain-vercel-anda>/admin/` → **Login with GitHub**. Guru/admin kini bisa menambah berita, agenda, foto, dan mengubah profil sekolah langsung dari browser. Setiap perubahan otomatis memicu build ulang Vercel dan langsung tayang.

@@ -7,7 +7,7 @@
 backend:
   name: github
   repo: BaniAdamAfandi/sekolah        # ← ganti bila fork/rename
-  branch: claude/sdn-tulungrejo-school-site-ed2jbg
+  branch: main
   # base_url = domain tempat serverless OAuth berjalan (situs Vercel Anda)
   base_url: https://sdn-tulungrejo-03.vercel.app
   auth_endpoint: /api/auth
