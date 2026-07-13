@@ -2,7 +2,7 @@
 title: Pembiasaan Upacara Bendera Setiap Hari Senin
 publishDate: 2026-06-24
 category: Kegiatan
-thumbnail: /uploads/berita-upacara.jpg
+thumbnail: /uploads/berita-upacara.svg
 excerpt: Upacara bendera rutin menjadi sarana menanamkan nilai nasionalisme dan kedisiplinan pada peserta didik SDN Tulungrejo 03.
 author: Admin Sekolah
 draft: false

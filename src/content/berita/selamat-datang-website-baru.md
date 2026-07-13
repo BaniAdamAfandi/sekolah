@@ -2,7 +2,7 @@
 title: Selamat Datang di Website Resmi SDN Tulungrejo 03
 publishDate: 2026-07-01
 category: Pengumuman
-thumbnail: /uploads/berita-website.jpg
+thumbnail: /uploads/berita-website.svg
 excerpt: SDN Tulungrejo 03 kini hadir dengan website resmi sebagai media informasi dan komunikasi bagi wali murid serta masyarakat.
 author: Admin Sekolah
 draft: false

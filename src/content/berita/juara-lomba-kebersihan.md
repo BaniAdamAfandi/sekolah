@@ -2,7 +2,7 @@
 title: Siswa Berprestasi dalam Lomba Kebersihan Kelas
 publishDate: 2026-06-10
 category: Prestasi
-thumbnail: /uploads/berita-kebersihan.jpg
+thumbnail: /uploads/berita-kebersihan.svg
 excerpt: Program lomba kebersihan antar kelas mendorong siswa menjaga lingkungan sekolah yang bersih, sehat, dan nyaman.
 author: Admin Sekolah
 draft: false

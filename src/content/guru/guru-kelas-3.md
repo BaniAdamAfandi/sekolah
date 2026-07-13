@@ -2,6 +2,6 @@
 name: "Nama Guru, S.Pd."
 nip: "-"
 role: Wali Kelas 3
-photo: /uploads/guru-placeholder.jpg
+photo: /uploads/guru-placeholder.svg
 order: 4
 ---
