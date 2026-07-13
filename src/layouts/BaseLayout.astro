@@ -20,6 +20,18 @@ const {
 const pageTitle = title ? `${title} — ${site.schoolName}` : `${site.schoolName} — ${site.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
+
+// Favicon mengikuti logo sekolah dari CMS; fallback ke ikon bawaan bila kosong.
+const favicon = site.logo || '/favicon.svg';
+const ext = favicon.split('?')[0].split('.').pop()?.toLowerCase();
+const faviconType =
+  ext === 'svg' ? 'image/svg+xml' :
+  ext === 'png' ? 'image/png' :
+  ext === 'ico' ? 'image/x-icon' :
+  ext === 'webp' ? 'image/webp' :
+  ext === 'gif' ? 'image/gif' :
+  ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
+  undefined;
 ---
 
 <!doctype html>
@@ -27,7 +39,8 @@ const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href={favicon} {...(faviconType ? { type: faviconType } : {})} />
+    <link rel="apple-touch-icon" href={favicon} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
