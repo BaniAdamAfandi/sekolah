@@ -128,6 +128,7 @@ collections:
           - { name: "facebook", label: "Link Facebook", widget: "string", required: false }
           - { name: "instagram", label: "Link Instagram", widget: "string", required: false }
           - { name: "youtube", label: "Link YouTube", widget: "string", required: false }
+          - { name: "tiktok", label: "Link TikTok", widget: "string", required: false }
           - { name: "studentCount", label: "Jumlah Siswa", widget: "string", required: false }
           - { name: "teacherCount", label: "Jumlah Guru", widget: "string", required: false }
           - { name: "heroImage", label: "Foto Hero (Beranda)", widget: "image", required: false }

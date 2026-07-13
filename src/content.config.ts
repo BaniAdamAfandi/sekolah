@@ -77,6 +77,7 @@ const pengaturan = defineCollection({
     facebook: z.string().optional(),
     instagram: z.string().optional(),
     youtube: z.string().optional(),
+    tiktok: z.string().optional(),
     studentCount: z.string().optional(),
     teacherCount: z.string().optional(),
     heroImage: z.string().optional(),
