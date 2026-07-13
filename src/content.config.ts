@@ -82,6 +82,8 @@ const pengaturan = defineCollection({
     studentCount: z.string().optional(),
     teacherCount: z.string().optional(),
     heroImage: z.string().optional(),
+    heroImages: z.array(z.object({ image: z.string() })).optional(),
+    heroInterval: z.number().optional(),
     heroHeadline: z.string().optional(),
     heroSubheadline: z.string().optional(),
   }),

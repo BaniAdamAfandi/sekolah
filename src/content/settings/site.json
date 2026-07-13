@@ -1,5 +1,9 @@
 {
   "heroImage": "/uploads/screenshot-2026-07-13-153312.png",
+  "heroImages": [
+    { "image": "/uploads/screenshot-2026-07-13-153312.png" }
+  ],
+  "heroInterval": 5,
   "mapsEmbed": "https://maps.google.com/maps?q=-7.7679894,112.5313484&z=16&output=embed",
   "youtube": "test",
   "facebook": "test",

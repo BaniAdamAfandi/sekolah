@@ -132,7 +132,16 @@ collections:
           - { name: "tiktok", label: "Link TikTok", widget: "string", required: false }
           - { name: "studentCount", label: "Jumlah Siswa", widget: "string", required: false }
           - { name: "teacherCount", label: "Jumlah Guru", widget: "string", required: false }
-          - { name: "heroImage", label: "Foto Hero (Beranda)", widget: "image", required: false }
+          - name: "heroImages"
+            label: "Foto Hero / Slideshow Beranda"
+            label_singular: "Foto"
+            widget: "list"
+            required: false
+            hint: "Tambahkan 1 foto atau lebih. Jika lebih dari satu, foto akan bergeser otomatis (slideshow)."
+            fields:
+              - { name: "image", label: "Foto", widget: "image" }
+          - { name: "heroInterval", label: "Jeda ganti foto slideshow (detik)", widget: "number", required: false, default: 5, value_type: "int", min: 2 }
+          - { name: "heroImage", label: "Foto Hero (cadangan, dipakai bila daftar di atas kosong)", widget: "image", required: false }
           - { name: "heroHeadline", label: "Judul Hero", widget: "string", required: false }
           - { name: "heroSubheadline", label: "Subjudul Hero", widget: "text", required: false }
 

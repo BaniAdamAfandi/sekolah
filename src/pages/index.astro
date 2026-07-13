@@ -23,6 +23,13 @@ const stats = [
   { label: 'Guru & Tendik', value: site.teacherCount ?? '—', icon: 'teacher' },
   { label: 'Akreditasi', value: site.accreditation ?? '—', icon: 'award' },
 ];
+
+// Foto hero: pakai daftar (slideshow) bila ada, jika tidak pakai foto tunggal.
+const heroImages = (site.heroImages ?? [])
+  .map((i) => i.image)
+  .filter(Boolean);
+if (heroImages.length === 0 && site.heroImage) heroImages.push(site.heroImage);
+const heroInterval = site.heroInterval && site.heroInterval >= 2 ? site.heroInterval : 5;
 ---
 
 <BaseLayout>
@@ -54,10 +61,35 @@ const stats = [
         </div>
       </div>
 
-      <!-- Foto hero dengan organic shape -->
+      <!-- Foto hero dengan organic shape (slideshow bila lebih dari satu foto) -->
       <div class="relative mx-auto w-full max-w-md lg:max-w-none">
         <div class="blob-mask overflow-hidden shadow-2xl shadow-primary-900/20 ring-8 ring-white">
-          <Figure src={site.heroImage} alt="Kegiatan siswa SDN Tulungrejo 03" ratio="aspect-square" rounded="rounded-none" loading="eager" />
+          {heroImages.length === 0 ? (
+            <Figure src={undefined} alt="Kegiatan siswa SDN Tulungrejo 03" ratio="aspect-square" rounded="rounded-none" loading="eager" />
+          ) : (
+            <div id="hero-slideshow" class="relative aspect-square bg-primary-50" data-interval={heroInterval}>
+              {heroImages.map((src, i) => (
+                <img
+                  src={src}
+                  alt={`Kegiatan siswa ${site.schoolName}`}
+                  data-slide
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  class:list={[
+                    'absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out',
+                    i === 0 ? 'opacity-100' : 'opacity-0',
+                  ]}
+                />
+              ))}
+              {heroImages.length > 1 && (
+                <div class="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                  {heroImages.map((_, i) => (
+                    <span data-dot class:list={['h-2 rounded-full bg-white transition-all', i === 0 ? 'w-5' : 'w-2 opacity-60']}></span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div class="absolute -bottom-4 -left-2 hidden rounded-2xl bg-white px-5 py-4 shadow-xl ring-1 ring-slate-100 sm:block">
           <p class="font-heading text-2xl font-bold text-primary-800">{site.studentCount}</p>
@@ -70,6 +102,28 @@ const stats = [
       </div>
     </div>
   </section>
+
+  <script>
+    const box = document.getElementById('hero-slideshow');
+    if (box) {
+      const slides = box.querySelectorAll<HTMLElement>('[data-slide]');
+      const dots = box.querySelectorAll<HTMLElement>('[data-dot]');
+      if (slides.length > 1) {
+        const interval = Number(box.dataset.interval) || 5;
+        let idx = 0;
+        const show = (next: number) => {
+          slides[idx].classList.replace('opacity-100', 'opacity-0');
+          dots[idx]?.classList.add('w-2', 'opacity-60');
+          dots[idx]?.classList.remove('w-5');
+          idx = next;
+          slides[idx].classList.replace('opacity-0', 'opacity-100');
+          dots[idx]?.classList.add('w-5');
+          dots[idx]?.classList.remove('w-2', 'opacity-60');
+        };
+        setInterval(() => show((idx + 1) % slides.length), interval * 1000);
+      }
+    }
+  </script>
 
   <!-- ===================== QUICK INFO BENTO ===================== -->
   <section class="mx-auto -mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
