@@ -2,14 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { getEntry } from 'astro:content';
+import { formatWa, mapsSearchLink } from '../lib/format';
 
 const site = (await getEntry('pengaturan', 'site'))!.data;
 const waLink = site.whatsapp ? `https://wa.me/${site.whatsapp}` : null;
+const mapsLink = mapsSearchLink(`${site.schoolName} ${site.address}`);
 
 const items = [
-  site.address && { label: 'Alamat', value: site.address, href: null, icon: 'map' },
+  site.address && { label: 'Alamat', value: site.address, href: mapsLink, icon: 'map' },
   site.email && { label: 'Email', value: site.email, href: `mailto:${site.email}`, icon: 'mail' },
-  site.whatsapp && { label: 'WhatsApp', value: `+${site.whatsapp}`, href: waLink, icon: 'wa' },
+  site.whatsapp && { label: 'WhatsApp', value: formatWa(site.whatsapp), href: waLink, icon: 'wa' },
   site.phone && { label: 'Telepon', value: site.phone, href: `tel:${site.phone}`, icon: 'phone' },
 ].filter(Boolean) as { label: string; value: string; href: string | null; icon: string }[];
 ---

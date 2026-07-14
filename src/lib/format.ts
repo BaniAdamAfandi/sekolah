@@ -15,6 +15,20 @@ export function formatDateFull(date: Date): string {
   return `${HARI[date.getDay()]}, ${formatDate(date)}`;
 }
 
+/** Format nomor WhatsApp jadi tampilan lokal, mis. "6281234567890" → "0812-3456-7890" */
+export function formatWa(wa: string): string {
+  let n = (wa || '').replace(/\D/g, '');
+  if (n.startsWith('62')) n = '0' + n.slice(2);
+  // Kelompokkan: 4-4-sisa (mis. 0812-3456-7890)
+  const m = n.match(/^(\d{4})(\d{4})(\d+)$/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : n;
+}
+
+/** Link Google Maps untuk pencarian alamat/lokasi */
+export function mapsSearchLink(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 /** Bagian tanggal terpisah untuk komponen "kalender" agenda */
 export function dateParts(date: Date) {
   return {
