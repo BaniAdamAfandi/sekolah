@@ -106,6 +106,26 @@ collections:
           - { name: "caption", label: "Keterangan", widget: "string", required: false }
       - { name: "body", label: "Deskripsi (opsional)", widget: "markdown", required: false }
 
+  # ---------------- MODUL ----------------
+  - name: "modul"
+    label: "Modul"
+    label_singular: "Materi"
+    folder: "src/content/modul"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ["order", "title"]
+    preview_path: "modul"
+    fields:
+      - { name: "title", label: "Judul", widget: "string" }
+      - name: "type"
+        label: "Jenis"
+        widget: "select"
+        options: ["Modul", "PPT", "Template", "Lainnya"]
+        default: "Modul"
+      - { name: "link", label: "Tautan Google Drive / Dokumen", widget: "string" }
+      - { name: "description", label: "Deskripsi", widget: "text", required: false }
+      - { name: "order", label: "Urutan Tampil", widget: "number", value_type: "int", default: 99 }
+
   # ---------------- PENGATURAN (file tunggal) ----------------
   - name: "pengaturan"
     label: "Pengaturan Situs"

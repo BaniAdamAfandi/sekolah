@@ -60,6 +60,18 @@ const galeri = defineCollection({
   }),
 });
 
+// â”€â”€ Modul Pembelajaran â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+const modul = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/modul' }),
+  schema: z.object({
+    title: z.string(),
+    type: z.string().default('Modul'),
+    link: z.string().url(),
+    description: z.string().optional(),
+    order: z.number().default(99),
+  }),
+});
+
 // ── Pengaturan Situs (singleton, JSON) ────────────────────────
 const pengaturan = defineCollection({
   loader: file('./src/content/settings/site.json', { parser: singleton }),
@@ -117,4 +129,4 @@ const ppdb = defineCollection({
   }),
 });
 
-export const collections = { berita, guru, agenda, galeri, pengaturan, profil, ppdb };
+export const collections = { berita, guru, agenda, galeri, modul, pengaturan, profil, ppdb };
