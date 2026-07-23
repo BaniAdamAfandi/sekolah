@@ -1,14 +1,14 @@
 {
-  "heroImage": "/uploads/screenshot-2026-07-13-153312.png",
+  "heroImage": "",
   "mapsEmbed": "https://maps.google.com/maps?q=-7.7679894,112.5313484&z=16&output=embed",
-  "youtube": "test",
-  "facebook": "test",
-  "logo": "/uploads/sdn.png",
+  "youtube": "https://www.youtube.com/@sdntulungrejo03sumberbrant85",
+  "facebook": "",
+  "logo": "/uploads/logo.jpg",
   "teacherCount": "12",
-  "phone": "08123445",
-  "tagline": "Sekolah Dasar Negeri Tulungrejo 03 Baut Malang",
-  "heroHeadline": "Tumbuh Ceria, Belajar Berprestasi",
-  "whatsapp": "6281234567890",
+  "phone": " (0341) 512250 ",
+  "tagline": "Estuga Hebat...  Proud To Be Estuga!",
+  "heroHeadline": "Menempa Karakter, Merawat Bumi, Mengukir Prestasi.",
+  "whatsapp": "085195503116",
   "heroImages": [
     {
       "image": "/uploads/screenshot-2026-07-13-153312.png"
@@ -17,15 +17,15 @@
       "image": "/uploads/hero-siswa.svg"
     }
   ],
-  "instagram": "test",
+  "instagram": "https://www.instagram.com/sdntulungrejo.03?igsh=MXRqNzZ4Z2pzemtvNQ==",
   "studentCount": "180+",
-  "address": "Sumber Brantas, Kec. Bumiaji, Kota Batu, Jawa Timur",
-  "tiktok": "test",
-  "accreditation": "B",
-  "heroSubheadline": "Selamat datang di SDN Tulungrejo 03. Kami membentuk generasi cerdas, berkarakter, dan berakhlak mulia dalam lingkungan belajar yang menyenangkan dan ramah anak.",
+  "address": "Jalan Raya Sumberbrantas Nomor 116, Bumiaji, Kota Batu, Jawa Timur 65336",
+  "tiktok": "",
+  "accreditation": "A",
+  "heroSubheadline": "Di lereng Gunung Welirang Kota Batu yang sejuk, SD Negeri Tulungrejo 03 Desa Sumber Brantas, Kecamatan Bumiaji, hadir bukan sekadar sebagai tempat belajar, melainkan sebuah ekosistem tempat mimpi dan karakter anak tumbuh subur.\nKami berkomitmen memberikan layanan pendidikan terbaik yang aman, nyaman, inklusif, dan adaptif terhadap kemajuan teknologi demi mempersiapkan generasi emas masa depan\n",
   "id": "site",
   "email": "sdntulungrejo03@gmail.com",
-  "npsn": "-",
-  "schoolName": "SDN Tulungrejo 03 Batu Malang",
+  "npsn": "",
+  "schoolName": "SDN Tulungrejo 03",
   "heroInterval": 5
 }
