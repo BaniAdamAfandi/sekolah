@@ -12,9 +12,6 @@ backend:
   base_url: https://sekolah-ivory.vercel.app
   auth_endpoint: /api/auth
 
-# Simpan perubahan sebagai draft dulu (editorial workflow) — opsional.
-publish_mode: editorial_workflow
-
 # Lokasi upload media (foto berita, guru, galeri, dll.)
 media_folder: "public/uploads"
 public_folder: "/uploads"
