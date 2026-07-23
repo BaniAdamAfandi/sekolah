@@ -1,14 +1,14 @@
 {
   "heroImage": "/uploads/screenshot-2026-07-13-153312.png",
   "mapsEmbed": "https://maps.google.com/maps?q=-7.7679894,112.5313484&z=16&output=embed",
-  "youtube": "test",
-  "facebook": "test",
-  "logo": "/uploads/sdn.png",
+  "youtube": "",
+  "facebook": "",
+  "logo": "/uploads/logo.jpg",
   "teacherCount": "12",
-  "phone": "08123445",
-  "tagline": "Sekolah Dasar Negeri Tulungrejo 03 Baut Malang",
+  "phone": " (0341) 512250 / 085195503116",
+  "tagline": "Estuga Hebat...  Proud To Be Estuga!",
   "heroHeadline": "Tumbuh Ceria, Belajar Berprestasi",
-  "whatsapp": "6281234567890",
+  "whatsapp": "085195503116",
   "heroImages": [
     {
       "image": "/uploads/screenshot-2026-07-13-153312.png"
@@ -17,15 +17,15 @@
       "image": "/uploads/hero-siswa.svg"
     }
   ],
-  "instagram": "test",
+  "instagram": "",
   "studentCount": "180+",
-  "address": "Sumber Brantas, Kec. Bumiaji, Kota Batu, Jawa Timur",
-  "tiktok": "test",
-  "accreditation": "B",
+  "address": "Jalan Raya Sumberbrantas Nomor 116, Bumiaji, Kota Batu, Jawa Timur 65336",
+  "tiktok": "",
+  "accreditation": "A",
   "heroSubheadline": "Selamat datang di SDN Tulungrejo 03. Kami membentuk generasi cerdas, berkarakter, dan berakhlak mulia dalam lingkungan belajar yang menyenangkan dan ramah anak.",
   "id": "site",
-  "email": "sdntulungrejo03@gmail.com",
-  "npsn": "-",
-  "schoolName": "SDN Tulungrejo 03 Batu Malang",
+  "email": "sdntulungrejo03@gmail.com /  tulungrejo.03sdn@gmail.com",
+  "npsn": "",
+  "schoolName": "SDN Tulungrejo 03",
   "heroInterval": 5
 }
